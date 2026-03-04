@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 require('dotenv').config();
 const express = require("express");
 const mysql = require('mysql2');  
@@ -39,3 +40,36 @@ app.get('/usuarios', (req, res) => {
 app.listen(PORT, () => {
  console.log(`Servidor rodando na porta ${PORT}`);
 })
+=======
+import express from 'express'
+
+const app = express()
+
+app.use(express.json())
+
+const users = []
+
+app.post('/usuarios', (req, res) => {
+    const {nome, email, senha} = req.body
+  
+    const sql = "INSERT INTO usuarios (nome, email, senha) values(?, ?, ?)";
+
+    db.query(sql, [nome, email, senha], (err, result) => {
+     if(err) {
+          return res.status(500).json({erro:err});
+     }
+    })
+    
+});
+
+app.get('/usuarios', (req, res) => {
+     res.json(users)
+});
+
+app.listen(3000, () => {
+     console.log('Servidor em Execução');
+});
+
+
+
+>>>>>>> fed9fa5b4ccc4bc17f33eb087f56e1862b00a121
