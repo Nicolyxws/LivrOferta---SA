@@ -1,17 +1,21 @@
-const repo = require("../repositories/livros.repo");
+const {list, create} = require("../repositories/livros.repo");
  
-async function list(req, res, next) {
+async function list2(req, res, next) {
     try {
-        const itens = await repo.list(req.livros.id);
+        const itens = await list(req.livros.id);
         res.json(item);
-    } catch (e) {next(e); }
+
+    } catch (e) { 
+      next (e);  }
 }
 
-async function create(req, res, next) {
-   try{
-    const id = await repo.create( req.body);
-    res.status(201).json({ id});
-} catch (e) { next(e); }
+async function create2(req, res, next) {
+    try {
+        const id = await create(req.body);
+        res.status(201).json({ id});
+    } catch (e) {
+      next(e);
+    }
 }
 
-module.exports = { list, create };
+module.exports = { list2, create2};

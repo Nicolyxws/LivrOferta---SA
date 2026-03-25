@@ -5,33 +5,21 @@ const app = express();
 
 //TO-DO
 // rotas, regras de negocio (controllers) e models (repositories) devem ser modularizados e separados nos respectivos arquivos
-app.post('/usuarios', (req, res) => {
-    const {nome, email, senha} = req.body
- 
-    const sql = "INSERT INTO usuarios (nome, email, senha) values(?, ?, ?)";
-
-
-    db.query(sql, [nome, email, senha], (err, result) => {
-     if(err) {
-          return res.status(500).json({error: err.message});
-     }
-    res.status(201).json({mesage: "Usuário criado.", id:result.insertId});    
-});
-});
-app.get('/usuarios', (req, res) => {
-     res.json(users)
-});
-//FIM TO-DO
-
 
 //Código organizado
 app.use(express.json());
 
 //importar rotas
+const criarUsuarioRoutes = require("../src/routes/criar-usuarios.routes");
+app.use("/Criar_usuarios", criarUsuarioRoutes);
+
 const livroRoutes = require("../src/routes/livros.routes");
 app.use("/livros", livroRoutes);
 
-const livroPedidos = require("../src/routes/itens-pedidos.route");
-app.use("/itens-pedidos", livroPedidos);
+// const livroPedidos = require("../src/routes/itens-pedidos.route");
+// app.use("/itens-pedidos", livroPedidos);
+
+const usuariosroutes = require("../src/routes/usuario.routes");
+app.use("/usuarios", usuariosroutes)
 
 module.exports = app; 
